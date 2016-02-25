@@ -39,7 +39,7 @@ state_attrs :arch,
             :trusted,
             :uri,
             :sensitive,
-            :update_ignore_failure
+            :ignore_apt_update_failure
 
 # name of the repo, used for source.list filename
 attribute :repo_name, kind_of: String, name_attribute: true, regex: [/^([a-z]|[A-Z]|[0-9]|_|-|\.)+$/]
@@ -59,4 +59,4 @@ attribute :cookbook, kind_of: String, default: nil
 attribute :cache_rebuild, kind_of: [TrueClass, FalseClass], default: true
 # Hide content of the source file, don't show output for commands being run, etc.
 attribute :sensitive, kind_of: [TrueClass, FalseClass], default: false
-attribute :update_ignore_failure, kind_of: [TrueClass, FalseClass], default: true
+attribute :ignore_apt_update_failure, kind_of: [TrueClass, FalseClass], default: true

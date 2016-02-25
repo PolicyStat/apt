@@ -194,13 +194,13 @@ action :add do
   end
 
   update_command = "apt-get update -o Dir::Etc::sourcelist='sources.list.d/#{new_resource.name}.list' -o Dir::Etc::sourceparts='-' -o APT::Get::List-Cleanup='0'"
-  if not new_resource.update_ignore_failure
+  if not new_resource.ignore_apt_update_failure
     update_command += "|| { rm /etc/apt/sources.list.d/#{new_resource.name}.list; exit 1; }"
   end
 
   execute 'apt-get update' do
     command update_command
-    ignore_failure new_resource.update_ignore_failure
+    ignore_failure new_resource.ignore_apt_update_failure
     sensitive new_resource.sensitive if respond_to?(:sensitive)
     action :nothing
     notifies :run, 'execute[apt-cache gencaches]', :immediately
