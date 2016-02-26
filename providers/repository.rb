@@ -195,6 +195,7 @@ action :add do
 
   update_command = "apt-get update -o Dir::Etc::sourcelist='sources.list.d/#{new_resource.name}.list' -o Dir::Etc::sourceparts='-' -o APT::Get::List-Cleanup='0'"
   if not new_resource.ignore_apt_update_failure
+    # make sure the source file is deleted, so reprovisioning will try to add the repo again if it failed
     update_command += "|| { rm /etc/apt/sources.list.d/#{new_resource.name}.list; exit 1; }"
   end
 
